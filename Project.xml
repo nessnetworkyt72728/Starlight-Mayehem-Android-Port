@@ -14,6 +14,8 @@
 
 	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
 	<set name="SWF_VERSION" value="11.8" />
+	
+	<define name="mobileC" if="mobile" />
 
 	<!-- ____________________________ Window Settings ___________________________ -->
 
@@ -27,7 +29,7 @@
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="false" vsync="false"/>
 
 	<!--Mobile-specific-->
-	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" resizable="false"/>
+	<window if="mobile" orientation="landscape" fullscreen="true" width="1280" height="720" resizable="false"/>
 
 	<!--Switch-specific-->
 	<window if="switch" orientation="landscape" fullscreen="true" width="0" height="0" resizable="true" />
@@ -39,6 +41,8 @@
 	<set name="BUILD_DIR" value="export/32bit" if="32bit" />
 
 	<classpath name="source" />
+	
+	<assets path="assets/shared/images/hitbox"/>
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web"/>
@@ -53,10 +57,6 @@
 		<library name="tutorial" preload="true" />
 		<library name="week1"    preload="true" />
 		<library name="week2"    preload="true" />
-		<library name="week3"    preload="true" />
-		<library name="week4"    preload="true" />
-		<library name="week5"    preload="true" />
-		<library name="week6"    preload="true" />
     <library name="CJ"    preload="true" />
 
   </section>
@@ -67,10 +67,6 @@
 		<library name="tutorial" preload="false" />
 		<library name="week1"    preload="false" />
 		<library name="week2"    preload="false" />
-		<library name="week3"    preload="false" />
-		<library name="week4"    preload="false" />
-		<library name="week5"    preload="false" />
-		<library name="week6"    preload="false" />
     <library name="CJ"    preload="false" />
   </section>
 	
@@ -84,14 +80,6 @@
 	<assets path="assets/week1"    library="week1"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/week2"    library="week2"    exclude="*.ogg" if="web"/>
 	<assets path="assets/week2"    library="week2"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/week3"    library="week3"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week3"    library="week3"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/week4"    library="week4"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week4"    library="week4"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/week5"    library="week5"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week5"    library="week5"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/week6"    library="week6"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week6"    library="week6"    exclude="*.mp3" unless="web"/>
   <assets path="assets/CJ"    library="CJ"    exclude="*.ogg" if="web"/>
   <assets path="assets/CJ"    library="CJ"    exclude="*.mp3" unless="web"/>
 	
@@ -118,7 +106,7 @@
 
 	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />
-	<haxelib name="newgrounds"/>
+	<haxelib name="newgrounds" unless='mobile'/>
 	<haxelib name="faxe" if='switch'/>
 	<haxelib name="polymod"/>
 	<haxelib name="discord_rpc" if="desktop"/>
