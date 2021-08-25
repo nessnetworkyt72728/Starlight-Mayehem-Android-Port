@@ -87,6 +87,10 @@ class PAGE3settings extends MusicBeatSubstate
         #if windows
 			DiscordClient.changePresence("Settings page: GFX", null);
 		#end
+		
+		#if mobileC
+        addVirtualPad(FULL, A_B);
+        #end
     }
 
     function createResults():Void

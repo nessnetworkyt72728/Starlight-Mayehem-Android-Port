@@ -89,6 +89,10 @@ class PAGE2settings extends MusicBeatSubstate
         #if windows
 			DiscordClient.changePresence("Settings page: SFX", null);
 		#end
+		
+		#if mobileC
+        addVirtualPad(FULL, A_B);
+        #end
     }
 
     function createResults():Void

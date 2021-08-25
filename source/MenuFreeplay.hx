@@ -196,6 +196,10 @@ class MenuFreeplay extends MusicBeatState
 			trace(md);
 		 */
 
+		#if mobileC
+		addVirtualPad(FULL, A_B);
+		#end
+		
 		super.create();
 
 		FlxTween.tween(bg, { alpha:1}, 0.5, { ease: FlxEase.quartInOut});

@@ -21,7 +21,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import io.newgrounds.NG;
+//import io.newgrounds.NG;
 import lime.app.Application;
 import openfl.Assets;
 import flixel.addons.display.FlxBackdrop;
@@ -53,7 +53,7 @@ class SettingsState extends MusicBeatState
 						Conductor.changeBPM(140);
 				}
 			}
-
+		
 		super.create();
 
 		persistentUpdate = persistentDraw = true;

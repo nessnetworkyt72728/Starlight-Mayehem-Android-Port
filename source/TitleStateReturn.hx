@@ -26,7 +26,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import io.newgrounds.NG;
+//import io.newgrounds.NG;
 import lime.app.Application;
 import openfl.Assets;
 import MainVariables._variables;
@@ -146,7 +146,7 @@ class TitleStateReturn extends MusicBeatState
 
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
 
-		#if mobile
+		//#if mobile
 		for (touch in FlxG.touches.list)
 		{
 			if (touch.justPressed)
@@ -154,7 +154,7 @@ class TitleStateReturn extends MusicBeatState
 				pressedEnter = true;
 			}
 		}
-		#end
+		//#end
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 

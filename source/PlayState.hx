@@ -46,6 +46,9 @@ import openfl.filters.ShaderFilter;
 import MainVariables._variables;
 import ModifierVariables._modifiers;
 import Endless_Substate._endless;
+#if mobileC
+import ui.Mobilecontrols;
+#end
 
 using StringTools;
 
@@ -77,6 +80,7 @@ class PlayState extends MusicBeatState
 	private var songPositionBar:Float = 0;
 
 	var halloweenLevel:Bool = false;
+	var songLength:Float = 0;
 	var doof:DialogueBox;
 
 	private var vocals:FlxSound;
@@ -178,6 +182,7 @@ class PlayState extends MusicBeatState
 	var scoreTxt:FlxText;
 	public static var misses:Int = 0;
 	var missTxt:FlxText;
+	var creditTxt:FlxText;
 	public static var accuracy:Float = 0.00;
 	private var totalNotesHit:Float = 0;
 	private var totalPlayed:Int = 0;
@@ -224,6 +229,10 @@ class PlayState extends MusicBeatState
 
 	public static var cameraX:Float;
 	public static var cameraY:Float;
+	
+	#if mobileC
+	var mcontrols:Mobilecontrols; 
+	#end
 
 	var miscLerp:Float = 0.09;
 	var camLerp:Float = 0.14;
@@ -1166,6 +1175,11 @@ class PlayState extends MusicBeatState
 		npsTxt.scrollFactor.set();
 		add(npsTxt);
 		npsTxt.visible = _variables.nps;
+		
+		var creditTxt:FlxText = new FlxText(5, 5, ("Port By M.A. JIGSAW"), 20);
+		creditTxt.scrollFactor.set();
+		creditTxt.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(creditTxt);
 
 		iconP1 = new HealthIcon(SONG.player1, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
@@ -1259,10 +1273,34 @@ class PlayState extends MusicBeatState
 		missTxt.cameras = [camHUD];
 		accuracyTxt.cameras = [camHUD];
 		npsTxt.cameras = [camHUD];
+		creditTxt.cameras = [camHUD];
 		doof.cameras = [camPAUSE];
 		freezeIndicator.cameras = [camPAUSE];
 		LightsOutBG.cameras = [camPAUSE];
 		BlindingBG.cameras = [camPAUSE];
+		
+		#if mobileC
+			mcontrols = new Mobilecontrols();
+			switch (mcontrols.mode)
+			{
+				case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
+					controls.setVirtualPad(mcontrols._virtualPad, FULL, NONE);
+				case HITBOX:
+					controls.setHitBox(mcontrols._hitbox);
+				default:
+			}
+			trackedinputs = controls.trackedinputs;
+			controls.trackedinputs = [];
+
+			var camcontrol = new FlxCamera();
+			FlxG.cameras.add(camcontrol);
+			camcontrol.bgColor.alpha = 0;
+			mcontrols.cameras = [camcontrol];
+
+			mcontrols.visible = false;
+
+			add(mcontrols);
+		#end
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -1498,6 +1536,10 @@ class PlayState extends MusicBeatState
 
 	function startCountdown():Void
 	{
+		#if mobileC
+		mcontrols.visible = true;
+		#end
+		
 		inCutscene = false;
 
 		if (gameplayArea != "Endless" || (gameplayArea == "Endless" && loops == 0))
@@ -2304,7 +2346,7 @@ class PlayState extends MusicBeatState
 				accuracyTxt.text = "Accuracy: " + truncateFloat(accuracy, 2) + "%";
 				npsTxt.text = "NPS: " + nps;
 		
-				if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
+				if (FlxG.keys.justPressed.ENTER #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 				{
 					persistentUpdate = false;
 					persistentDraw = true;
@@ -3070,6 +3112,19 @@ class PlayState extends MusicBeatState
 				canPause = false;
 				FlxG.sound.music.volume = 0;
 				vocals.volume = 0;
+				
+				#if mobileC
+		        new FlxTimer().start(0.1, function(tmr:FlxTimer)
+		        {
+			        mcontrols.alpha -= 0.1;
+			        if (mcontrols.alpha != 0){
+				        tmr.reset(0.1);
+			    }
+			    else{
+				    trace('aweseom.');
+			    }
+		        });
+		       #end
 		
 				if (gameplayArea != "Endless")
 				{
@@ -3105,7 +3160,7 @@ class PlayState extends MusicBeatState
 		
 							if (SONG.validScore)
 							{
-								NGio.unlockMedal(60961);
+
 								Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
 							}
 		

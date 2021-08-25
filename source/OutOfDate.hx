@@ -37,7 +37,7 @@ class OutOfDate extends MusicBeatState
 		{
 			FlxG.openURL("https://gamebanana.com/mods/44236");
 		}
-		if (controls.BACK)
+		if (controls.BACK#if mobile || FlxG.touches.justStarted().length>0 #end)
 		{
 			leftState = true;
 			FlxG.switchState(new TitleState());

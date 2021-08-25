@@ -252,7 +252,7 @@ class AnimationDebug extends MusicBeatState
 			char.playAnim(animList[curAnim]);
 		}
 
-		if (FlxG.keys.justPressed.ESCAPE)
+		if (FlxG.keys.justPressed.ESCAPE#if mobile || FlxG.touches.justStarted().length>0 #end)
 			{
 				FlxG.switchState(new SettingsState());
 				FlxG.mouse.visible = false;

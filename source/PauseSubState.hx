@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxCamera;
 import Controls.Control;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -93,6 +94,15 @@ class PauseSubState extends MusicBeatSubstate
 		changeSelection();
 
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+		
+		#if mobileC
+		addVirtualPad(UP_DOWN, A);
+		
+		var camcontrol = new FlxCamera();
+		FlxG.cameras.add(camcontrol);
+		camcontrol.bgColor.alpha = 0;
+		_virtualpad.cameras = [camcontrol];
+		#end
 	}
 
 	override function update(elapsed:Float)

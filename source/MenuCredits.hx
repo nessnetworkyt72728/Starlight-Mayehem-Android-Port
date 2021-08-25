@@ -252,6 +252,10 @@ class MenuCredits extends MusicBeatState
 			// scoreText.textField.htmlText = md;
 			trace(md);
 		 */
+		 
+		#if mobileC
+		addVirtualPad(UP_DOWN, A_B);
+		#end
 
 		super.create();
 

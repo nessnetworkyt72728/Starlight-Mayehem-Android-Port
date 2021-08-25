@@ -18,7 +18,7 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import io.newgrounds.NG;
+//import io.newgrounds.NG;
 import lime.app.Application;
 import MainVariables._variables;
 import flixel.math.FlxMath;
@@ -121,6 +121,10 @@ class PlaySelection extends MusicBeatState
 		// NG.core.calls.event.logEvent('swag').send();
 
 		changeItem();
+		
+		#if mobileC
+		addVirtualPad(LEFT_RIGHT, A_B);
+		#end
 
 		super.create();
 

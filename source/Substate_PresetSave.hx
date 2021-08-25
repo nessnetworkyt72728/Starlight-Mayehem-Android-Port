@@ -76,6 +76,10 @@ class Substate_PresetSave extends MusicBeatSubstate
 			{
 				selectable = true;
 			});
+			
+		#if mobileC
+        addVirtualPad(NONE, A_B);
+        #end
     }
 
     var selectable:Bool = false;
@@ -83,6 +87,13 @@ class Substate_PresetSave extends MusicBeatSubstate
     override function update(elapsed:Float)
     {
         super.update(elapsed);
+		
+		        for (touch in FlxG.touches.list)
+        {
+            if (!touch.overlaps(_virtualpad) && touch.justReleased){
+                if (!FlxG.stage.window.textInputEnabled) FlxG.stage.window.textInputEnabled = true;
+            }
+        }
 
         name.hasFocus = true;
 

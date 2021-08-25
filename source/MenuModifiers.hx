@@ -18,7 +18,7 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import io.newgrounds.NG;
+//import io.newgrounds.NG;
 import lime.app.Application;
 import MainVariables._variables;
 import flixel.math.FlxMath;
@@ -148,6 +148,10 @@ class MenuModifiers extends MusicBeatState
         explain.x = 20;
         explain.y = 654;
         explain.setBorderStyle(OUTLINE, 0xFF000000, 5, 1);
+		
+		#if mobileC
+		addVirtualPad(FULL, A_B);
+		#end
 
         super.create();
 		changeItem();
