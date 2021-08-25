@@ -24,6 +24,8 @@
 	<SubTexture name="config select0000" x="921" y="460" width="512" height="182"/>
 	<SubTexture name="cutscene idle0000" x="1443" y="460" width="402" height="220"/>
 	<SubTexture name="cutscene select0000" x="1855" y="460" width="518" height="200"/>
+	<SubTexture name="controls idle0000" x="2307" y="3539" width="403" height="157"/>
+	<SubTexture name="controls select0000" x="2710" y="3539" width="511" height="172"/>
 	<SubTexture name="filter idle0000" x="2383" y="460" width="383" height="219"/>
 	<SubTexture name="filter select0000" x="2776" y="460" width="512" height="198"/>
 	<SubTexture name="fps idle0000" x="3298" y="460" width="383" height="211"/>
