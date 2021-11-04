@@ -294,55 +294,14 @@ class PlayState extends MusicBeatState
 
 		Conductor.changeBPM(SONG.bpm);
 
-		if (_modifiers.LoveSwitch && _modifiers.Fright < _modifiers.Love)
-			dialogueSuffix = "-love";
-		else if (_modifiers.FrightSwitch && _modifiers.Fright < 50 && _modifiers.Love <= _modifiers.Fright)
-			dialogueSuffix = "-uneasy";
-		else if (_modifiers.FrightSwitch && (_modifiers.Fright >= 50 && _modifiers.Fright < 100) && _modifiers.Love <= _modifiers.Fright)
-			dialogueSuffix = "-scared";
-		else if (_modifiers.FrightSwitch && (_modifiers.Fright >= 100 && _modifiers.Fright < 200) && _modifiers.Love <= _modifiers.Fright)
-			dialogueSuffix = "-terrified";
-		else if (_modifiers.FrightSwitch && _modifiers.Fright >= 200 && _modifiers.Love <= _modifiers.Fright)
-			dialogueSuffix = "-depressed";
-		//else if (_modifiers.FrightSwitch && _modifiers.Fright >= 310)
-		//	dialogueSuffix = "-dead"; ///yiiiiikes
-		else if(_modifiers.Practice)
-			dialogueSuffix = "-practice";
-		else if(_modifiers.Perfect)
-			dialogueSuffix = "-perfect";
-
-
-		/*
 		switch (SONG.song.toLowerCase())
 		{
-			case 'tutorial':
-				dialogue = ["Hey you're pretty cute.", 'Use the arrow keys to keep up \nwith me singing.'];
-			case 'bopeebo':
-				dialogue = [
-					'HEY!',
-					"You think you can just sing\nwith my daughter like that?",
-					"If you want to date her...",
-					"You're going to have to go \nthrough ME first!"
-				];
-			case 'fresh':
-				dialogue = ["Not too shabby boy.", ""];
-			case 'dadbattle':
-				dialogue = [
-					"gah you think you're hot stuff?",
-					"If you can beat me here...",
-					"Only then I will even CONSIDER letting you\ndate my daughter!"
-				];
-		}
-		*/
-
-		if (FileSystem.exists(Paths.txt(SONG.song.toLowerCase()+'/dialogue$dialogueSuffix')))
-		{
-			dialogue = File.getContent(Paths.txt(SONG.song.toLowerCase()+'/dialogue$dialogueSuffix')).trim().split('\n');
-
-			for (i in 0...dialogue.length)
-			{
-				dialogue[i] = dialogue[i].trim();
-			}
+			case 'inverted-ascension':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('inverted-ascension/dialogue'));
+			case 'echoes':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('echoes/dialogue'));
+			case 'artificial-lust':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('artificial-lust/dialogue'));
 		}
 
 		#if windows
@@ -1175,11 +1134,13 @@ class PlayState extends MusicBeatState
 		npsTxt.scrollFactor.set();
 		add(npsTxt);
 		npsTxt.visible = _variables.nps;
-		
-		var creditTxt:FlxText = new FlxText(5, 5, ("Port By M.A. JIGSAW"), 20);
-		creditTxt.scrollFactor.set();
-		creditTxt.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(creditTxt);
+
+		creditTxt = new FlxText(876, 648, 348);
+        creditTxt.text = 'PORTED BY\nM.A. JIGSAW';
+        creditTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, RIGHT);
+        creditTxt.setBorderStyle(OUTLINE, FlxColor.BLACK, 3, 1);       
+        creditTxt.scrollFactor.set();
+        add(creditTxt);
 
 		iconP1 = new HealthIcon(SONG.player1, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);

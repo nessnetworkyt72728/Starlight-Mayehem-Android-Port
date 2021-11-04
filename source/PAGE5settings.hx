@@ -34,7 +34,7 @@ class PAGE5settings extends MusicBeatSubstate
 {
 
     var menuItems:FlxTypedGroup<FlxSprite>;
-    var optionShit:Array<String> = ['page', 'controls', 'gameplay', 'chart', 'animation'];
+    var optionShit:Array<String> = ['page', 'gameplay', 'chart', 'animation'];
 
     private var grpSongs:FlxTypedGroup<Alphabet>;
     var selectedSomethin:Bool = false;
@@ -185,8 +185,6 @@ class PAGE5settings extends MusicBeatSubstate
 		                                    #end
                                         case 'gameplay':
                                             FlxG.switchState(new GameplayCustomizeState());
-										case 'controls':
-                                            FlxG.switchState(new options.CustomControlsState());
                                     }
                                 });
                         }
@@ -223,9 +221,6 @@ class PAGE5settings extends MusicBeatSubstate
                 case "page":
                     ResultText.text = "MISCELLANEOUS";
                     ExplainText.text = "Previous Page: GAMEPLAY \nNext Page: CLEAR";
-				case "controls":
-                    ResultText.text = "";
-                    ExplainText.text = "Customize Your Mobile Controls.";
                 case "gameplay":
                     ResultText.text = "";
                     ExplainText.text = "Customize your gameplay in a way.";

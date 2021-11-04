@@ -30,7 +30,7 @@ class PAGE1settings extends MusicBeatSubstate
 {
 
     var menuItems:FlxTypedGroup<FlxSprite>;
-    var optionShit:Array<String> = ['page', 'resolution', 'fullscreen', 'fpsCounter', 'fps', 'memory', 'brightness', 'gamma', 'filter', 'watermark'];
+    var optionShit:Array<String> = ['page', 'controls', 'resolution', 'fullscreen', 'fpsCounter', 'fps', 'memory', 'brightness', 'gamma', 'filter', 'watermark'];
 
     private var grpSongs:FlxTypedGroup<Alphabet>;
     var selectedSomethin:Bool = false;
@@ -170,6 +170,34 @@ class PAGE1settings extends MusicBeatSubstate
                     {
                         changeStuff(1);
                     }
+
+                    if (controls.ACCEPT)
+                    {
+                        if (optionShit[curSelected] != 'page' && optionShit[curSelected] == 'controls')
+                        {
+                            FlxG.sound.play(Paths.sound('confirmMenu'), _variables.svolume/100);
+                            selectedSomethin = true;
+
+                            #if windows
+                                DiscordClient.changePresence("Time to go in!", null);
+                            #end
+
+                            menuItems.forEach(function(spr:FlxSprite)
+                                {
+                                    spr.animation.play('idle');
+                                    FlxTween.tween(spr, { x: -1000}, 0.15, { ease: FlxEase.expoIn });
+                                });
+                            
+                            FlxTween.tween(FlxG.camera, { zoom: 7}, 0.5, { ease: FlxEase.expoIn, startDelay: 0.2 });
+                            FlxTween.tween(ResultText, { alpha: 0}, 0.15, { ease: FlxEase.expoIn });
+                            FlxTween.tween(ExplainText, { alpha: 0}, 0.15, { ease: FlxEase.expoIn });
+    
+                            new FlxTimer().start(0.3, function(tmr:FlxTimer)
+                            {
+                                FlxG.switchState(new options.CustomControlsState());
+                            });
+                        }
+                    }
                 
                     if (controls.BACK)
                         {
@@ -199,6 +227,9 @@ class PAGE1settings extends MusicBeatSubstate
             
             switch (optionShit[curSelected])
             {
+                case "controls":
+                    ResultText.text = "";
+                    ExplainText.text = "Customize Your Mobile Controls.";
                 case "resolution":
                     ResultText.text = FlxG.width*_variables.resolution+"x"+FlxG.height*_variables.resolution;
                     ExplainText.text = "RESOLUTION:\nChange the resolution of your game.";

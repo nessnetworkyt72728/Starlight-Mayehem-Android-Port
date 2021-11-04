@@ -73,11 +73,7 @@ class Main extends Sprite
 
 		#if !debug
 		initialState = FirstCheckState;
-		#end
-		
-		gameWidth = 1280;
-		gameHeight = 720;
-		zoom = 1;		
+		#end	
 
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
 
